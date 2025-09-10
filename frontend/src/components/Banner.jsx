@@ -65,7 +65,7 @@ export default function Banner() {
                 scrollTrigger: {
                     trigger: rootRef.current,
                     start: "top top",
-                    end: "+=1500",
+                    end: "+=800",
                     scrub: true,
                     pin: true,
                     anticipatePin: 1,
