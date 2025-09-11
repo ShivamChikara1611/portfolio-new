@@ -20,7 +20,7 @@ export default function Overview() {
     return (
         <section
             id="overview"
-            className="relative flex items-center justify-center px-6 md:px-16 pb-20"
+            className="relative flex items-center justify-center px-6 md:px-16 mb-20 md:mb-30"
         >
             <div className="max-w-4xl w-full">
                 <div className="text-center mb-5 md:mb-12">
