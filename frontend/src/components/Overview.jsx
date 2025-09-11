@@ -20,9 +20,14 @@ export default function Overview() {
     return (
         <section
             id="overview"
-            className="relative flex items-center justify-center px-6 md:px-16 py-20"
+            className="relative flex items-center justify-center px-6 md:px-16 pb-20"
         >
             <div className="max-w-4xl w-full">
+                <div className="text-center mb-5 md:mb-12">
+                <h2 className="text-white font-black text-4xl sm:text-5xl md:text-6xl">
+                    {language === "en" ? "Overview" : "自己紹介"}
+                </h2>
+            </div>
                 {/* About */}
                 <p className="tracking-wide text-md md:text-2xl font-extralight text-gray-300 text-center">
                     {texts[language].about}
