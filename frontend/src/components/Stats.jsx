@@ -22,55 +22,58 @@ const Stats = () => {
 
     // Map contribution count to block color
     const getBlockColor = (count) => {
-        if (!count || count === 0) return "#1f2937"; // gray
-        if (count < 3) return "#a3e635";             // light green
-        if (count < 6) return "#65a30d";             // medium green
-        if (count < 10) return "#166534";            // dark green
-        return "#4ade80";                            // bright green
+        if (!count || count === 0) return "#303330"; // gray
+        if (count < 3) return "#1D5B1A";             // light green
+        if (count < 6) return "#329E2C";             // medium green
+        if (count < 10) return "#3FC738";            // dark green
+        return "#62D15C";                            // bright green
     };
 
     return (
-        <div className="p-6 max-w-4xl mx-auto">
+        <div className="my-16 md:grid md:grid-cols-[1fr_4fr] gap-5 min-h-[180px] max-w-[1000px] mx-auto px-5 md:px-0">
             {/* Profile Stats */}
-            <div className="grid grid-cols-2 gap-6 text-center mb-8">
-                <div className="bg-gray-800 text-white p-4 rounded-2xl shadow">
+            <div className="flex md:flex-col gap-3 md:gap-0 justify-between mb-3 md:mb-0">
+                <div className="bg-white/5 text-white p-4 w-full rounded-2xl text-center shadow">
                     <h2 className="text-xl font-bold">{profile.repos}</h2>
                     <p className="text-sm text-gray-300">Repositories</p>
                 </div>
-                <div className="bg-gray-800 text-white p-4 rounded-2xl shadow">
+                <div className="bg-white/5 text-white w-full p-4 rounded-2xl text-center shadow">
                     <h2 className="text-xl font-bold">{contributions.totalContributions}</h2>
                     <p className="text-sm text-gray-300">Contributions</p>
                 </div>
             </div>
 
             {/* Heatmap */}
-            <div className="bg-black/20 p-4 rounded-2xl shadow">
-                <CalendarHeatmap
-                    startDate={new Date(new Date().getFullYear(), 0, 1)}
-                    // endDate={new Date(new Date().getFullYear(), 11, 31)}
-                    endDate={new Date()}
-                    values={contributions.weeks.flatMap((w) => w.contributionDays)}
-                    classForValue={() => "heatmap-cell"}
-                    tooltipDataAttrs={(val) => ({
-                        "data-tooltip-id": "tooltip",
-                        "data-tooltip-content": val
-                            ? `${val.contributionCount} contribution${val.contributionCount !== 1 ? "s" : ""} on ${val.date}`
-                            : `0 contributions`,
-                    })}
-                    gutterSize={2}
-                    transformDayElement={(rect, value) => {
-                        const color = value ? getBlockColor(value.contributionCount) : getBlockColor(0);
-                        return React.cloneElement(rect, {
-                            style: {
-                                fill: color,
-                                width: 10,
-                                height: 10,
-                                rx: 2,
-                                ry: 2,
-                            },
-                        });
-                    }}
-                />
+            <div className="bg-black/20 p-4 rounded-2xl shadow overflow-x-auto">
+                <div className="min-w-[1000px] h-full flex justify-end">
+                    <CalendarHeatmap
+                        startDate={new Date(new Date().getFullYear(), 0, 1)}
+                        endDate={new Date(new Date().getFullYear(), 11, 31)}
+                        values={contributions.weeks.flatMap((w) => w.contributionDays)}
+                        classForValue={() => "heatmap-cell"}
+                        tooltipDataAttrs={(val) => ({
+                            "data-tooltip-id": "tooltip",
+                            "data-tooltip-content": val
+                                ? `${val.contributionCount} contribution${val.contributionCount !== 1 ? "s" : ""} on ${val.date}`
+                                : `0 contributions`,
+                        })}
+                        gutterSize={4}
+                        transformDayElement={(rect, value) => {
+                            const color = value ? getBlockColor(value.contributionCount) : getBlockColor(0);
+                            return React.cloneElement(rect, {
+                                style: {
+                                    fill: color,
+                                    width: 12,
+                                    height: 12,
+                                    rx: 2,
+                                    ry: 2,
+                                },
+                            });
+                        }}
+                        horizontal={true}
+                        showMonthLabels={true}
+                    />
+                </div>
                 <ReactTooltip id="tooltip" place="top" variant="dark" />
             </div>
         </div>

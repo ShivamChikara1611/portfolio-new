@@ -133,7 +133,7 @@ const Education = () => {
                                 }`}
                         >
                             {/* Card */}
-                            <div className="ml-[12vw] md:ml-0 md:w-5/12 px-4">
+                            <div className="ml-[15vw] md:ml-0 w-[calc(100vw-15vw)] md:w-5/12 px-4">
                                 <div className="bg-third/30 p-6 rounded-xl shadow-lg text-white">
                                     <h3 className="text-2xl font-bold">{edu.title}</h3>
                                     <p className="mt-1 text-gray-300">{edu.school}</p>
