@@ -49,8 +49,9 @@ body::after {
 }
 
 ::-webkit-scrollbar {
-    @apply w-2 h-0;
-    background-color: transparent;
+    height: 6px;
+    width: 6px;
+    background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -58,8 +59,44 @@ body::after {
 }
 
 ::-webkit-scrollbar-track {
-    @apply bg-transparent;
+    background: transparent;
 }
+
+
+/* Hide scrollbar by default, show on hover/scroll */
+.scroll-container {
+    scrollbar-width: thin;
+    /* Firefox */
+    scrollbar-color: rgba(255, 255, 255, 0.05) transparent;
+}
+
+/* Chrome, Edge, Safari */
+.scroll-container::-webkit-scrollbar {
+    width: 2px;
+    /* Very thin */
+    height: 2px;
+    background: transparent;
+}
+
+.scroll-container::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+.scroll-container::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* Hide scrollbar until hover or active scrolling */
+.scroll-container::-webkit-scrollbar-thumb {
+    visibility: hidden;
+}
+
+.scroll-container:hover::-webkit-scrollbar-thumb,
+.scroll-container:active::-webkit-scrollbar-thumb {
+    visibility: visible;
+}
+
 
 @media (max-width:740px) {
     .active p {

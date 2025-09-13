@@ -159,7 +159,9 @@ export default function Banner() {
                     className="mt-10 flex flex-col items-center gap-8 opacity-0 translate-y-[100px]" // initial hidden
                 >
                     <a
-                        href="/resume/shivam-chikara-resume.pdf"
+                        href={language === "en"
+                            ? "/resume/shivam-chikara.pdf"
+                            : "/resume/shivam-chikara-nihongo.pdf"}
                         download
                         className="inline-block bg-third/30 text-gray-300 px-8 py-3 rounded-xl font-semibold hover:bg-white/10 active:scale-[0.98] transition"
                     >
