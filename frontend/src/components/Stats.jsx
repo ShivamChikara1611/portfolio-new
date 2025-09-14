@@ -38,21 +38,22 @@ const Stats = () => {
     };
 
     const t = translations[language] || translations.en;
+    const backendUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
 
     useEffect(() => {
-        fetch("http://localhost:5000/api/profile")
+        fetch(`${backendUrl}/api/profile`)
             .then((res) => res.json())
             .then(setProfile);
 
-        fetch("http://localhost:5000/api/contributions")
+        fetch(`${backendUrl}/api/contributions`)
             .then((res) => res.json())
             .then(setContributions);
 
-        fetch("http://localhost:5000/api/top-repos")
+        fetch(`${backendUrl}/api/top-repos`)
             .then((res) => res.json())
             .then(setTopRepos);
 
-        fetch("http://localhost:5000/api/recent-activity")
+        fetch(`${backendUrl}/api/recent-activity`)
             .then((res) => res.json())
             .then(setActivity);
     }, []);
