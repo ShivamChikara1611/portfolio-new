@@ -108,84 +108,74 @@ export default function Projects() {
     const projects = projectsData[language];
     const [index, setIndex] = useState(0);
     const cardsRef = useRef([]);
+    const intervalRef = useRef(null);
 
-    // Update 3D carousel positions
+    const total = projects.length;
+
+    // Animate positions
     const updateCarousel = (activeIndex) => {
         cardsRef.current.forEach((card, i) => {
             if (!card) return;
-            const offset = i - activeIndex;
 
-            if (offset === 0) {
-                // Active card
-                gsap.to(card, {
-                    x: 0,
-                    scale: 1,
-                    opacity: 1,
-                    zIndex: 3,
-                    duration: 0.8,
-                    ease: "power3.out",
-                });
-            } else if (offset === -1 || offset === projects.length - 1) {
-                // Left card
-                gsap.to(card, {
-                    x: "-40%",
-                    scale: 0.8,
-                    opacity: 0.6,
-                    zIndex: 2,
-                    duration: 0.8,
-                    ease: "power3.out",
-                });
-            } else if (offset === 1 || offset === -(projects.length - 1)) {
-                // Right card
-                gsap.to(card, {
-                    x: "40%",
-                    scale: 0.8,
-                    opacity: 0.6,
-                    zIndex: 2,
-                    duration: 0.8,
-                    ease: "power3.out",
-                });
-            } else {
-                // Hide other cards
-                gsap.to(card, {
-                    x: 0,
-                    scale: 0.5,
-                    opacity: 0,
-                    zIndex: 1,
-                    duration: 0.8,
-                    ease: "power3.out",
-                });
-            }
+            // Distance from active
+            let offset = i - activeIndex;
+            if (offset < -Math.floor(total / 2)) offset += total;
+            if (offset > Math.floor(total / 2)) offset -= total;
+
+            let x = offset * 300; // horizontal spacing
+            let z = -Math.abs(offset) * 200; // push farther away
+            let scale = offset === 0 ? 1 : 0.8; // center big
+            let opacity = offset === 0 ? 1 : 0.4; // center bright
+
+            gsap.to(card, {
+                x,
+                z,
+                scale,
+                opacity,
+                duration: 0.8,
+                ease: "power3.inOut",
+            });
         });
     };
 
-    // Initial setup
+    // Auto change card
+    const startAuto = () => {
+        intervalRef.current = setInterval(() => {
+            setIndex((prev) => (prev + 1) % total);
+        }, 2000);
+    };
+
+    const stopAuto = () => {
+        if (intervalRef.current) clearInterval(intervalRef.current);
+    };
+
     useEffect(() => {
         updateCarousel(index);
     }, [index, language]);
 
-    // Auto slide every 3s
     useEffect(() => {
-        const interval = setInterval(() => {
-            setIndex((prev) => (prev + 1) % projects.length);
-        }, 3000);
-        return () => clearInterval(interval);
-    }, [projects.length]);
+        startAuto();
+        return () => stopAuto();
+    }, [total]);
 
     return (
-        <section id="projects" className=" text-white relative">
+        <section id="projects" className="text-white relative">
             <div className="max-w-2xl mx-auto px-6">
-
-                <h2 className="text-white text-center mb-10 font-black text-4xl sm:text-5xl md:text-6xl">
+                <h2 className="text-white text-center mb-5 font-black text-4xl sm:text-5xl md:text-6xl">
                     {language === "en" ? "Projects" : "プロジェクト"}
                 </h2>
 
-                <div className="relative flex justify-center items-center perspective h-[70vh]">
+                <div
+                    className="relative flex justify-center items-center h-[420px] w-full mx-auto perspective-[2000px]"
+                    style={{ transformStyle: "preserve-3d" }}
+                    onMouseEnter={stopAuto}
+                    onMouseLeave={startAuto}
+                >
                     {projects.map((project, i) => (
                         <div
                             key={i}
                             ref={(el) => (cardsRef.current[i] = el)}
-                            className="absolute w-[80%] md:w-[50%] bg-gradient-to-r from-indigo-900 via-purple-800 to-indigo-900 rounded-xl shadow-lg cursor-pointer overflow-hidden"
+                            className="absolute w-[300px] bg-gradient-to-r from-indigo-900 via-purple-800 to-indigo-900 rounded-xl shadow-lg cursor-pointer overflow-hidden"
                             style={{
                                 transformStyle: "preserve-3d",
                                 backfaceVisibility: "hidden",
@@ -199,8 +189,12 @@ export default function Projects() {
                             />
 
                             <div className="px-3">
-                                <h3 className="text-xl tracking-wider font-semibold mb-1">{project.name}</h3>
-                                <p className="text-gray-200 text-sm font-thin mb-3">{project.description}</p>
+                                <h3 className="text-xl tracking-wider font-semibold mb-1">
+                                    {project.name}
+                                </h3>
+                                <p className="text-gray-200 text-sm font-thin mb-3 line-clamp-6">
+                                    {project.description}
+                                </p>
                                 <div className="flex flex-wrap justify-start gap-1 mb-4">
                                     {project.tags.map((tag, j) => (
                                         <span
@@ -218,7 +212,7 @@ export default function Projects() {
                                     href={project.viewLink}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="bg-blue-800 rounded-full p-2 flex items-center justify-center"
+                                    className="bg-primary/70 rounded-full p-2 flex items-center justify-center"
                                 >
                                     <AttachFileIcon />
                                 </a>
