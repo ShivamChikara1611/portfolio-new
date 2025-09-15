@@ -46,13 +46,13 @@ const Navbar = () => {
 
             <div className='flex items-center gap-4 md:hidden'>
 
-                <img onClick={() => setShowMenu(true)} className='w-[40px] md:hidden cursor-pointer' src={assets.menu_icon} alt="" />
+                <img onClick={() => setShowMenu(true)} className='w-[25px] md:hidden cursor-pointer' src={assets.menu_icon} alt="" />
 
                 {/*--------Mobile Menu-----------*/}
                 <div className={`${showMenu ? 'fixed w-full' : 'h-0 w-0'} md:hidden right-0 top-0 bottom-0 overflow-hidden transition-all text-gray-200 backdrop-blur-md bg-black/30`}>
                     <div className='flex items-center justify-between px-5 py-4'>
                         <h1 className='logo-font text-4xl'>Shivam</h1>
-                        <img className='w-[50px] cursor-pointer' onClick={() => setShowMenu(false)} src={assets.cross_icon} alt="" />
+                        <img className='w-[25px] cursor-pointer' onClick={() => setShowMenu(false)} src={assets.cross_icon} alt="" />
                     </div>
                     <ul className='flex flex-col items-center gap-5 mt-12 px-5 text-lg font-medium w-full'>
                         <NavLink onClick={() => setShowMenu(false)} to='/'><p className='px-10 py-2 rounded-full'>{texts[language].home}</p></NavLink>
