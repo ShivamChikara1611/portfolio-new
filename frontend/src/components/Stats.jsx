@@ -58,7 +58,7 @@ const Stats = () => {
             .then(setActivity);
     }, []);
 
-    if (!profile || !contributions) return <p className="text-xl italic font-thin text-center my-16 text-gray-400 tracking-wider">{t.loading}</p>;
+    if (!profile || !contributions) return <p className="text-xl italic font-thin text-center my-16 text-gray-400 tracking-wider"></p>;
 
     // Map contribution count to block color
     const getBlockColor = (count) => {
