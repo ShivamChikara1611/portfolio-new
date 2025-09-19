@@ -10,8 +10,8 @@ const Navbar = () => {
     const [showMenu, setShowMenu] = useState(false);
 
     const texts = {
-        en: {home: "Home", about: "About", projects: "Projects", contact: "Contact", switch: "日本語" },
-        jp: {home: "ホーム", about: "紹介", projects: "プロジェクト", contact: "連絡先", switch: "English" },
+        en: {home: "Home", about: "About", projects: "Projects", switch: "日本語" },
+        jp: {home: "ホーム", about: "紹介", projects: "プロジェクト", switch: "English" },
     };
 
 
@@ -23,18 +23,26 @@ const Navbar = () => {
                     <li className='py-1 tracking-widest'>{texts[language].home}</li>
                     <hr className='border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden' />
                 </NavLink>
-                <NavLink to='/projects'>
-                    <li className='py-1 tracking-widest'>{texts[language].projects}</li>
-                    <hr className='border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden' />
-                </NavLink>
-                <NavLink to='/about'>
-                    <li className='py-1 tracking-widest'>{texts[language].about}</li>
-                    <hr className='border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden' />
-                </NavLink>
-                <NavLink to='/contact'>
-                    <li className='py-1 tracking-widest'>{texts[language].contact}</li>
-                    <hr className='border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden' />
-                </NavLink>
+                <li
+                    className='py-1 tracking-widest cursor-pointer'
+                    onClick={() => {
+                        const el = document.getElementById('projects');
+                        if (el) el.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                >
+                    {texts[language].projects}
+                </li>
+                <hr className='border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden' />
+                <li
+                    className='py-1 tracking-widest cursor-pointer'
+                    onClick={() => {
+                        const el = document.getElementById('about');
+                        if (el) el.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                >
+                    {texts[language].about}
+                </li>
+                <hr className='border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden' />
             </ul>
 
             <button
@@ -56,9 +64,26 @@ const Navbar = () => {
                     </div>
                     <ul className='flex flex-col items-center gap-5 mt-12 px-5 text-lg font-medium w-full'>
                         <NavLink onClick={() => setShowMenu(false)} to='/'><p className='px-10 py-2 rounded-full'>{texts[language].home}</p></NavLink>
-                        <NavLink onClick={() => setShowMenu(false)} to='/projects'><p className='px-10 py-2 rounded-full'>{texts[language].projects}</p></NavLink>
-                        <NavLink onClick={() => setShowMenu(false)} to='/about'><p className='px-10 py-2 rounded-full'>{texts[language].about}</p></NavLink>
-                        <NavLink onClick={() => setShowMenu(false)} to='/contact'><p className='px-10 py-2 rounded-full'>{texts[language].contact}</p></NavLink>
+                        <p
+                            className='px-10 py-2 rounded-full cursor-pointer'
+                            onClick={() => {
+                                setShowMenu(false);
+                                const el = document.getElementById('projects');
+                                if (el) el.scrollIntoView({ behavior: 'smooth' });
+                            }}
+                        >
+                            {texts[language].projects}
+                        </p>
+                        <p
+                            className='px-10 py-2 rounded-full cursor-pointer'
+                            onClick={() => {
+                                setShowMenu(false);
+                                const el = document.getElementById('about');
+                                if (el) el.scrollIntoView({ behavior: 'smooth' });
+                            }}
+                        >
+                            {texts[language].about}
+                        </p>
                     </ul>
                 </div>
             </div>
