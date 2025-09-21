@@ -20,7 +20,7 @@ export default function Certificates() {
                 {language === "en" ? "Certifications" : "認証"}
             </h2>
 
-            <p>Under Developing phase!</p>
+            <p className="text-center font-thin text-xl my-5 text-gray-400">Under Developing phase!</p>
         </section>
     );
 }
