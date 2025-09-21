@@ -19,6 +19,8 @@ export default function Certificates() {
             <h2 className="text-white text-center mb-5 font-black text-4xl sm:text-5xl md:text-6xl">
                 {language === "en" ? "Certifications" : "認証"}
             </h2>
+
+            <p>Under Developing phase!</p>
         </section>
     );
 }
